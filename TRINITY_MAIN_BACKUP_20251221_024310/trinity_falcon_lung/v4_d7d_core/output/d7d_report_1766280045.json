@@ -1,0 +1,59 @@
+{
+  "summary": {
+    "final_velocity_mps": 5400.92,
+    "final_altitude_km": 88.55,
+    "simulation_time_s": 0.06,
+    "steps_computed": 324,
+    "computational_speed_khz": 5.47,
+    "d7d_efficiency_score": 10.8018
+  },
+  "performance": {
+    "avg_thrust_factor": 1.0,
+    "avg_drag_loss_mps2": 4.54,
+    "total_drag_loss_estimate_mps": 735.43,
+    "gravity_loss_reduction_percent": 140.01841453271408,
+    "fuel_saving_percent": 5.1
+  },
+  "subsystems": {
+    "lung": {
+      "cycles": 324,
+      "efficiency_gain": 0.06839999999999999,
+      "pattern": "D7D_Enhanced_Sinusoidal"
+    },
+    "turn": {
+      "smoothness": 0.2355027914630147,
+      "optimization": "1.000",
+      "total_turn": 75.3150014176537
+    },
+    "energy": {
+      "total_recovered_kwh": 88.5906320015284,
+      "efficiency": 0.15,
+      "potential_savings_percent": 15
+    },
+    "optimizer": {
+      "best_score": 5.2822455948852,
+      "iterations": 33,
+      "improvement": 5.274237857980438
+    },
+    "telemetry": {
+      "timestamp": 162.0,
+      "altitude_km": 88.55308337166556,
+      "velocity_mach": 15.885060960693249,
+      "acceleration_g": 19.28918345058053,
+      "thrust_percent": 98.1550283228817,
+      "data_points": 324
+    }
+  },
+  "d7d_enhancements": {
+    "total_layers_active": 7,
+    "ai_optimization_iterations": 33,
+    "telemetry_data_points": 324,
+    "energy_recovery_potential_kwh": 88.5906320015284,
+    "breathing_cycles": 324
+  },
+  "metadata": {
+    "version": "4.0-D7D",
+    "timestamp": "2025-12-20T22:20:45.623324",
+    "simulation_date": "2025-12-20 22:20:45"
+  }
+}

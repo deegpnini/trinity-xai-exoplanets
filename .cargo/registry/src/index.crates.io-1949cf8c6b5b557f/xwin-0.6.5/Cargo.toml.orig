@@ -1,0 +1,100 @@
+[package]
+name = "xwin"
+version = "0.6.5"
+description = "Allows downloading and repacking the MSVC CRT and Windows SDK for cross compilation"
+authors = ["Jake Shadle <jake.shadle@embark-studios.com>"]
+edition = "2021"
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/Jake-Shadle/xwin"
+homepage = "https://github.com/Jake-Shadle/xwin"
+categories = ["development-tools", "command-line-utilities"]
+keywords = ["windows", "cross-compilation"]
+exclude = [
+    ".cargo",
+    ".github",
+    "docs",
+    "tests/**",
+    "deny.toml",
+    "release.toml",
+    "xwin.dockerfile",
+]
+
+[features]
+# By default we use rustls for TLS
+default = ["rustls-tls"]
+rustls-tls = ["ureq/tls"]
+# If this feature is enabled we instead use the native TLS implementation for the
+# target platform
+native-tls = ["ureq/native-tls", "native-tls-crate/vendored"]
+
+[dependencies]
+# Easy errors
+anyhow = "1.0"
+# Network/file buffers
+bytes = "1.0"
+# CAB files are used in conjunction with MSI files for SDK packages
+cab = "0.6"
+# Nicer to use utf-8 paths
+camino = "1.0"
+# Easy CLI tables
+cli-table = { version = "0.4", default-features = false }
+crossbeam-channel = "0.5"
+# Pretty progress bars
+indicatif = "0.17"
+# Decoding of MSI installer packages
+msi = "0.8"
+parking_lot = "0.12"
+# brrr
+rayon = "1.5"
+# Include scanning 
+regex = "1.0"
+# HTTP requests
+ureq = { version = "2.4", default-features = false, features = ["gzip"] }
+memchr = "2.6"
+native-tls-crate = { package = "native-tls", version = "0.2", optional = true }
+# SHA-256 verification
+sha2 = "0.10"
+# Deserialization
+serde = { version = "1.0", features = ["derive"] }
+# JSON deserialization
+serde_json = "1.0"
+# Argument parsing
+clap = { version = "4.0", features = ["derive", "env", "wrap_help"] }
+# Easy management of temp files
+tempfile = "3.1"
+# We need to pin it to not get duplicates due to zip -> num_enum -> proc-macro-crate -> (WHY!?!?) toml_edit
+toml = "0.8"
+# Tracing logs
+tracing = { version = "0.1", default-features = false, features = [
+    "attributes",
+    "std",
+] }
+# Emission of logs to stdout
+tracing-subscriber = { version = "0.3", default-features = false, features = [
+    "env-filter",
+    "fmt",
+    "json",
+] }
+# Hashing
+twox-hash = "1.6"
+# Determine the latest CRT and SDK versions
+versions = "6.2"
+walkdir = "2.3"
+# Unpacking of VSIX "packages"
+zip = { version = "2.1", default-features = false, features = ["deflate"] }
+
+[target.'cfg(all(target_env = "musl", target_arch = "x86_64"))'.dependencies]
+# Faster allocator for musl builds
+mimalloc = { version = "0.1", default-features = false }
+
+[dev-dependencies]
+insta = "1.12"
+
+[profile.dev.package.insta]
+opt-level = 3
+
+[profile.dev.package.similar]
+opt-level = 3
+
+[profile.dev.package.sha2]
+opt-level = 3

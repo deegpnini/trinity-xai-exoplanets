@@ -1,0 +1,74 @@
+{
+  "d7d_core": {
+    "version": "4.0.0",
+    "quality_level": "D7D_PRO",
+    "activation_date": "2025-12-20",
+    "license": "OPEN_SOURCE_ROCKETRY_BR",
+    
+    "physics_engine": {
+      "time_step": 0.5,
+      "precision": "DOUBLE",
+      "integration_method": "VERLET",
+      "atmospheric_model": "US_STANDARD_ENHANCED",
+      "drag_model": "MACH_DEPENDENT"
+    },
+    
+    "optimization": {
+      "ai_enabled": true,
+      "learning_rate": 0.001,
+      "max_iterations": 1000,
+      "objective_function": "MAX_DELTA_V_MIN_DRAG"
+    },
+    
+    "telemetry": {
+      "sampling_rate_hz": 10,
+      "data_compression": true,
+      "real_time_display": true,
+      "auto_backup_interval_s": 60
+    },
+    
+    "simulation_parameters": {
+      "initial_mass_kg": 14000,
+      "propellant_mass_kg": 13000,
+      "specific_impulse_sl_s": 282,
+      "burn_time_s": 162,
+      "diameter_m": 3.66,
+      "cross_section_area_m2": 10.52,
+      "base_drag_coefficient": 0.3
+    },
+    
+    "falcon_lung_params": {
+      "base_thrust": 1.0,
+      "amplitude": 0.1,
+      "frequency": 4.0,
+      "phase": 0.0,
+      "harmonics_enabled": true,
+      "adaptive_modulation": true
+    },
+    
+    "gravity_turn_params": {
+      "initial_pitch_deg": 90,
+      "final_pitch_deg": 15,
+      "turn_rate": 1.8,
+      "adaptive_turn": true,
+      "altitude_factor": 0.1,
+      "velocity_factor": 0.1
+    },
+    
+    "energy_recovery": {
+      "enabled": true,
+      "efficiency": 0.15,
+      "min_altitude_m": 1000,
+      "min_velocity_mps": 50,
+      "turbine_area_ratio": 0.3
+    },
+    
+    "output_settings": {
+      "generate_json_report": true,
+      "generate_text_summary": true,
+      "save_telemetry_data": true,
+      "plot_graphs": true,
+      "verbose_logging": true
+    }
+  }
+}

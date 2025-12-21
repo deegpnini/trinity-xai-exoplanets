@@ -1,0 +1,22 @@
+COMO RESTAURAR O TRINITY FALCON LUNG:
+======================================
+
+1. NO TERMUX (se backup estiver em ~/):
+   cp -r TRINITY_BACKUP_20251221_0239/trinity_falcon_lung ~/
+
+2. SE BAIXOU DO GOOGLE DRIVE:
+   • Coloque a pasta no /sdcard/Download/
+   • No Termux: termux-setup-storage
+   • Copie: cp -r /sdcard/Download/TRINITY_BACKUP_20251221_0239/trinity_falcon_lung ~/
+
+3. TESTE:
+   cd ~/trinity_falcon_lung/v5_hybrid_pulmonary
+   python hybrid_pulmonary_system.py
+
+CONTÉM:
+✓ v3_basic/ - Sistema básico
+✓ v4_d7d_core/ - Núcleo avançado  
+✓ v5_hybrid_pulmonary/ - Sistema híbrido completo
+
+Backup criado em: Sun Dec 21 02:39:24 -03 2025
+Por: Hebron (@deegpnini)

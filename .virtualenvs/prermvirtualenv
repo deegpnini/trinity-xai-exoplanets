@@ -1,0 +1,4 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# This hook is run before a virtualenv is deleted.
+# argument: full path to environment directory
+

@@ -1,0 +1,12 @@
+🚀 D7D QUICK SIMULATION FOR GROK
+==================================================
+Δv ideal: 7,301 m/s
+Δv real: 6,425 m/s
+Drag loss: 280 m/s
+Cd atual: 0.3
+Payload extra: +64 kg
+
+💡 SUGESTÃO D7D:
+   Cd profile: 0.35 (<Mach 0.8) → 0.5 (0.8-1.2) → 0.25 (>1.2)
+   Dynamic pressure limit: 35 kPa
+   Aero heating model simplificado

@@ -1,0 +1,24 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@11.6.2
+2 info using node@v24.11.1
+3 silly config load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm install npm yarn typescript eslint prettier nodemon http-server live-server create-react-app @angular/cli vue-cli
+7 verbose argv "install" "--global" "npm" "yarn" "typescript" "eslint" "prettier" "nodemon" "http-server" "live-server" "create-react-app" "@angular/cli" "vue-cli"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2025-12-21T06_34_07_658Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2025-12-21T06_34_07_658Z-debug-0.log
+10 silly logfile done cleaning log files
+11 http fetch GET 200 https://registry.npmjs.org/npm 507ms (cache miss)
+12 verbose stack Error: Can't install npm globally as it will very likely break installation of global packages using npm. See https://github.com/termux/termux-packages/issues/13293
+12 verbose stack     at Install.exec (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/commands/install.js:132:17)
+12 verbose stack     at async Npm.exec (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/npm.js:208:9)
+12 verbose stack     at async module.exports (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/cli/entry.js:60:5)
+13 error Can't install npm globally as it will very likely break installation of global packages using npm. See https://github.com/termux/termux-packages/issues/13293
+14 verbose cwd /data/data/com.termux/files/home/trinity_falcon_lung
+15 verbose os Linux 4.14.190-24363203-abA705MNXXU5DXE1
+16 verbose node v24.11.1
+17 verbose npm  v11.6.2
+18 verbose exit 1
+19 verbose code 1
+20 error A complete log of this run can be found in: /data/data/com.termux/files/home/.npm/_logs/2025-12-21T06_34_07_658Z-debug-0.log

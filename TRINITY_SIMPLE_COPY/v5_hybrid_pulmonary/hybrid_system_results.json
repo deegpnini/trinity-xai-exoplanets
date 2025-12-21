@@ -1,0 +1,11 @@
+{
+  "mode_distribution": {
+    "COMBUSTION": 176,
+    "ELECTRIC": 424
+  },
+  "battery_final": 198.8888888888989,
+  "energy_generated": 0,
+  "fuel_saved_kg": 100.1111111111111,
+  "economic_saving_r": 250.27777777777774,
+  "co2_saved_kg": 315.34999999999997
+}

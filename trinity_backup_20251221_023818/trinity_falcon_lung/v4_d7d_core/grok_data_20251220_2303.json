@@ -1,0 +1,29 @@
+{
+  "performance": {
+    "final_delta_v_mps": 5333.250200519975,
+    "final_altitude_km": 88.4580674518656,
+    "burn_time_s": 162.0,
+    "final_mass_kg": 1000.0000000000003
+  },
+  "aerodynamics": {
+    "max_dynamic_pressure_kpa": 30.780554226646178,
+    "max_q_time_s": 21.5,
+    "max_heat_flux_kwpm2": 4.168798540343076,
+    "max_heat_time_s": 21.5,
+    "total_heat_load_kjpm2": 258.45017669648007,
+    "max_mach": 15.686030001529337,
+    "regime_counts": {
+      "subsonic": 42,
+      "transonic": 61,
+      "supersonic": 221
+    },
+    "q_at_max_velocity": 0.5265753564911833,
+    "heat_at_max_velocity": 0.0
+  },
+  "enhancements": {
+    "cd_profile": "0.35\u21920.5\u21920.25 (Grok suggestion)",
+    "aero_heating": "included",
+    "dynamic_pressure": "tracked",
+    "version": "4.1-GROK-AERO"
+  }
+}

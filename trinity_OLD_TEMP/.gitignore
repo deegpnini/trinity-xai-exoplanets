@@ -1,0 +1,32 @@
+# Tokens e credenciais
+*.token
+*.key
+*.secret
+.env
+.git-credentials
+.github_secure/
+
+# Dados sensíveis do projeto
+**/hybrid_system_results.json
+**/concept_announcement.txt
+
+# Arquivos Python temporários
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Logs e backups
+*.log
+backup/
+*.tar.gz
+*.zip
+
+# Termux específico
+termux-setup-storage
+.bash_history

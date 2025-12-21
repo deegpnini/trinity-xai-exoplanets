@@ -1,0 +1,35 @@
+[package]
+description = "LZMA / LZMA2 / LZIP / XZ compression ported from 'tukaani xz for java'"
+edition = "2021"
+homepage = "https://github.com/hasenbanck/lzma-rust2/"
+name = "lzma-rust2"
+repository = "https://github.com/hasenbanck/lzma-rust2/"
+rust-version = "1.82"
+version = "0.13.0"
+keywords = ["lzma", "lzip", "xz"]
+categories = ["compression", "no-std"]
+license = "Apache-2.0"
+exclude = ["/tests/data"]
+
+[features]
+default = ["std", "encoder", "optimization", "lzip", "xz"]
+std = []
+optimization = []
+encoder = []
+xz = ["crc", "sha2"]
+lzip = ["crc"]
+
+[dependencies]
+crc = { version = "3.3", optional = true }
+sha2 = { version = "0.10.9", optional = true }
+
+[dev-dependencies]
+criterion = { version = "0.7", features = ["html_reports"] }
+liblzma = { version = "0.4", features = ["static"] }
+
+[[bench]]
+name = "comparison"
+harness = false
+
+[package.metadata.docs.rs]
+all-features = true

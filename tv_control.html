@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Termux TV Control</title>
+    <style>
+        body { background: #000; color: #0f0; font-family: monospace; }
+        .terminal { background: #111; padding: 20px; border-radius: 10px; }
+        input { width: 90%; padding: 10px; font-size: 16px; }
+        button { padding: 10px 20px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🎮 Termux TV Control</h1>
+    <div class="terminal" id="output">Terminal ready...</div>
+    <input type="text" id="command" placeholder="Digite comando...">
+    <button onclick="sendCommand()">Executar</button>
+    
+    <script>
+        function sendCommand() {
+            let cmd = document.getElementById('command').value;
+            fetch('/run?cmd=' + encodeURIComponent(cmd))
+                .then(r => r.text())
+                .then(text => {
+                    document.getElementById('output').innerHTML = text;
+                });
+            document.getElementById('command').value = '';
+        }
+    </script>
+</body>
+</html>

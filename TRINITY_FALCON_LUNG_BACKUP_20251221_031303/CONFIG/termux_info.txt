@@ -1,0 +1,40 @@
+Termux Variables:
+TERMUX_APK_RELEASE=F_DROID
+TERMUX_APP_PACKAGE_MANAGER=apt
+TERMUX_APP_PID=29833
+TERMUX_APP__DATA_DIR=/data/user/0/com.termux
+TERMUX_APP__LEGACY_DATA_DIR=/data/data/com.termux
+TERMUX_APP__SE_FILE_CONTEXT=u:object_r:app_data_file:s0:c182,c257,c512,c768
+TERMUX_APP__SE_INFO=default:targetSdkVersion=28:complete
+TERMUX_IS_DEBUGGABLE_BUILD=0
+TERMUX_MAIN_PACKAGE_FORMAT=debian
+TERMUX_VERSION=0.118.3
+TERMUX__HOME=/data/data/com.termux/files/home
+TERMUX__PREFIX=/data/data/com.termux/files/usr
+TERMUX__ROOTFS_DIR=/data/data/com.termux/files
+TERMUX__SE_PROCESS_CONTEXT=u:r:untrusted_app_27:s0:c182,c257,c512,c768
+TERMUX__USER_ID=0
+Packages CPU architecture:
+aarch64
+Subscribed repositories:
+# sources.list
+deb https://mirror.nevacloud.com/applications/termux/termux-main stable main
+Updatable packages:
+All packages up to date
+termux-tools version:
+1.45.0
+Android version:
+11
+Kernel build information:
+Linux localhost 4.14.190-24363203-abA705MNXXU5DXE1 #2 SMP PREEMPT Sat May 25 00:39:22 KST 2024 aarch64 Android
+Device manufacturer:
+samsung
+Device model:
+SM-A705MN
+Supported ABIs:
+SUPPORTED_ABIS: arm64-v8a,armeabi-v7a,armeabi
+SUPPORTED_32_BIT_ABIS: armeabi-v7a,armeabi
+SUPPORTED_64_BIT_ABIS: arm64-v8a
+LD Variables:
+LD_LIBRARY_PATH=
+LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec-ld-preload.so

@@ -1,0 +1,29 @@
+
+        PASSO 1: CONFIGURAR GIT LOCALMENTE
+        ----------------------------------
+        git config --global user.name "Helyton R. G. Ronchi (Hebron)"
+        git config --global user.email "deegp.nini@gmail.com"
+        
+        PASSO 2: INICIALIZAR REPOSITÓRIO
+        --------------------------------
+        cd /caminho/para/seu/projeto
+        git init
+        
+        PASSO 3: CONECTAR COM SEU REPOSITÓRIO EXISTENTE
+        ------------------------------------------------
+        git remote add origin https://github.com/deegpnini/trinity-xai-exoplanets.git
+        
+        PASSO 4: ADICIONAR ARQUIVOS
+        ---------------------------
+        git add .
+        git commit -m "Primeiro commit: Projeto Interestelar Brasileiro por Helyton R. G. Ronchi (Hebron)"
+        
+        PASSO 5: SUBIR PARA GITHUB
+        --------------------------
+        git branch -M main
+        git push -u origin main
+        
+        PASSO 6: VERIFICAR
+        ------------------
+        Acesse: https://github.com/deegpnini/trinity-xai-exoplanets
+        

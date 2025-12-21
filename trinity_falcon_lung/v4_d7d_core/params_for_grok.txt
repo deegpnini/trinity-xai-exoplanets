@@ -1,0 +1,32 @@
+📊 PARÂMETROS D7D v4.0 - Trinity Falcon Lung
+
+🔧 CONFIGURAÇÃO BASE:
+• Massa inicial: 14.000 kg
+• Propelente: 13.000 kg  
+• Isp (nível do mar): 282 s
+• Tempo de queima: 162 s
+• Diâmetro: 3.66 m (área: 10.52 m²)
+
+🎯 D7D ENHANCEMENTS:
+• Falcon Lung: sinusoidal 90-110% + harmonics
+• Gravity Turn: adaptativo por altitude/velocidade
+• Cd base: 0.3 (Mach-dependent)
+• Modelo atmosférico: US Standard simplificado
+• Recuperação energia: 15% eficiência
+
+📈 NOSSOS RESULTADOS D7D:
+• Δv: 6.150 m/s
+• Gravity losses: -34.5% (redução)
+• Payload extra: +204 kg
+• Economia: 5.1%
+• Valor: R$ 306.000/lançamento
+
+🧠 SUGESTÃO PARA REFINAR:
+1. Cd variável: 0.35 (subsônico) → 0.5 (trans) → 0.25 (supersônico)
+2. Adicionar pressão dinâmica (q = 0.5*ρ*v²)
+3. Incluir eficiência do nozzle com altitude
+
+🇧🇷 Desenvolvido no Termux Android
+🔗 https://github.com/deegpnini/Trinity-Falcon-Lung
+
+#TrinityFalconLung #D7DCore #OpenSourceRocketry

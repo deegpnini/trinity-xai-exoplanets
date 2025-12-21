@@ -1,0 +1,28 @@
+📱 COMO ACESSAR SEUS BACKUPS:
+=============================
+
+1. ABRA O APP "ARQUIVOS" DO ANDROID
+
+2. NAVEGUE ATÉ:
+   • Internal storage → termux → home
+
+3. VOCÊ VERÁ AS PASTAS:
+   • trinity_backup_interno_[DATA]/     ← Backup completo
+   • TRINITY_COPIA_DIRETA/              ← Cópia direta
+   • TRINITY_DRIVE_[DATA].tar.gz        ← Para Google Drive
+
+4. PARA ENVIAR PARA GOOGLE DRIVE:
+   • Toque no arquivo .tar.gz
+   • Toque em "Compartilhar"
+   • Selecione "Salvar no Drive"
+   • Escolha a pasta e salve
+
+5. PARA COMPARTILHAR:
+   • Selecione qualquer pasta/arquivo
+   • "Compartilhar" → Escolha app (WhatsApp, Email, etc.)
+
+6. SE PRECISAR RESTAURAR:
+   No Termux, execute:
+   cp -r trinity_backup_interno_*/trinity_falcon_lung ~/
+
+📞 Dúvidas: @deegpnini (Hebron)

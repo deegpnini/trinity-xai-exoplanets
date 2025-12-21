@@ -1,0 +1,17 @@
+TRINITY FALCON LUNG - BACKUP INTERNO
+====================================
+
+BACKUP CRIADO: $(date)
+
+CONTÉM:
+• Projeto completo Trinity Falcon Lung
+• Todas as versões (v3, v4, v5)
+• Configurações do Termux
+
+PARA RESTAURAR:
+cp -r trinity_falcon_lung ~/
+
+LOCALIZAÇÃO:
+$BACKUP_DIR
+
+POR: Hebron (@deegpnini)

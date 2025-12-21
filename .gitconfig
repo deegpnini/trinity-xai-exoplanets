@@ -1,0 +1,18 @@
+[user]
+	name = Helyton R. G. Ronchi
+	email = deegp.nini@gmail.com
+[core]
+	editor = nano
+	excludesfile = /data/data/com.termux/files/home/.gitignore_global
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	lg = log --oneline --graph --all

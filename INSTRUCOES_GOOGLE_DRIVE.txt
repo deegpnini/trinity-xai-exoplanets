@@ -1,0 +1,26 @@
+📲 COMO SALVAR NO GOOGLE DRIVE:
+================================
+
+1. Abra o app "Arquivos" ou "Gerenciador de Arquivos" do Android
+2. Navegue até: Armazenamento interno → termux → home
+3. Procure o arquivo: TRINITY_GOOGLE_DRIVE_*.tar.gz
+4. Toque e segure no arquivo
+5. Toque em "Compartilhar" ou "⋮" (três pontos)
+6. Selecione "Salvar no Drive"
+7. Escolha a pasta no Google Drive
+8. Toque em "Salvar"
+
+📁 ARQUIVO PARA UPLOAD:
+$(basename "$COMPACTADO")
+Tamanho: $TAMANHO
+
+🔐 SENHA (se solicitada): Não tem senha
+
+🔄 PARA RESTAURAR:
+1. Baixe do Google Drive para o celular
+2. No Termux: termux-setup-storage
+3. Mova para Termux: cp /sdcard/Download/TRINITY_*.tar.gz ~/
+4. Extraia: tar -xzf TRINITY_*.tar.gz
+5. Pronto! Projeto em ~/trinity_falcon_lung
+
+📞 CONTATO: @deegpnini (Hebron)

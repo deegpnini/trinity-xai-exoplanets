@@ -1,0 +1,4 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# This hook is run before every virtualenv is activated.
+# argument: environment name
+
