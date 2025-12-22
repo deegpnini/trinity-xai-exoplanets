@@ -1,24 +1,19 @@
-# Trinity x xAI - Exoplanet Research
+# 🔭 TRINITY XAI EXOPLANETS
 
-🤝 **Colaboração aberta entre Trinity Project e xAI**  
-🌌 Explorando exoplanetas com IA ética e dados abertos
+## 🌌 Projeto de IA para descoberta de exoplanetas
 
-## 🎯 Objetivos
-- Modelagem de atmosferas de exoplanetas
-- Detecção de bioassinaturas com IA
-- Análise de dados do JWST e telescópios espaciais  
-- Ciência aberta e reproduzível
+### 👨💻 Mantido por:
+**Helyton R. G. Ronchi (Hebron)**
+- Eletricista, pintor, carpinteiro, serviços gerais
+- Programador autodidata (aprendendo há 3 meses)
+- Chamado pelo cometa 3I/ATLAS
 
-## 🚀 Primeiros Passos
-1. Explore os dados na pasta `/data`
-2. Execute os notebooks em `/notebooks`
-3. Participe das discussões
+### 📂 Estrutura:
+- SIMULACOES/ = Códigos de simulação
+- NOTEBOOKS/ = Análises de dados
+- DOCS/ = Documentação
+- GUIAS/ = Tutoriais
+- INTERESTELAR_HEBRON/ = Meu espaço pessoal
 
-## 🤝 Como Contribuir
-- Sugira melhorias via Issues
-- Envie Pull Requests com análises
-- Compartilhe dados relevantes
-
----
-
-*Juntos na exploração ética do cosmos!* 🛸
+### 🚀 Como começar:
+Veja INSTALAR_NO_CELULAR.md
