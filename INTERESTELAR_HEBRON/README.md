@@ -1,24 +1,6 @@
-# Trinity x xAI - Exoplanet Research
+# 🌟 MEU ESPAÇO DE APRENDIZADO
+Aqui guardo o que aprendo dia a dia.
+Erros, acertos, dúvidas, descobertas.
 
-🤝 **Colaboração aberta entre Trinity Project e xAI**  
-🌌 Explorando exoplanetas com IA ética e dados abertos
-
-## 🎯 Objetivos
-- Modelagem de atmosferas de exoplanetas
-- Detecção de bioassinaturas com IA
-- Análise de dados do JWST e telescópios espaciais  
-- Ciência aberta e reproduzível
-
-## 🚀 Primeiros Passos
-1. Explore os dados na pasta `/data`
-2. Execute os notebooks em `/notebooks`
-3. Participe das discussões
-
-## 🤝 Como Contribuir
-- Sugira melhorias via Issues
-- Envie Pull Requests com análises
-- Compartilhe dados relevantes
-
----
-
-*Juntos na exploração ética do cosmos!* 🛸
+Autor: Helyton (Hebron)
+Data: Sun Dec 21 23:07:57 -03 2025
