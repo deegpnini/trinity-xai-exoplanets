@@ -16,3 +16,5 @@
 	unstage = reset HEAD --
 	last = log -1 HEAD
 	lg = log --oneline --graph --all
+[credential]
+	helper = store
