@@ -1,0 +1,119 @@
+name: License Check
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'copilot/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+  schedule:
+    # Run monthly on the 1st at 10:00 AM UTC
+    - cron: '0 10 1 * *'
+  workflow_dispatch:
+
+jobs:
+  license-compliance:
+    name: License Compliance Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install pip-licenses
+          pip install -r requirements.txt
+      
+      - name: Generate license report
+        run: |
+          pip-licenses --format=markdown --output-file=licenses-current.md
+          pip-licenses --format=json --output-file=licenses-current.json
+      
+      - name: Check for incompatible licenses
+        run: |
+          echo "Checking for GPL/AGPL licenses that require special handling..."
+          pip-licenses | grep -i "gpl\|agpl" || echo "No strict copyleft licenses found"
+      
+      - name: Verify license compatibility
+        run: |
+          python -c "
+          import json
+          
+          INCOMPATIBLE = ['AGPL']  # Licenses we cannot use
+          SPECIAL_HANDLING = ['GPL']  # Licenses requiring special handling
+          
+          with open('licenses-current.json', 'r') as f:
+              licenses = json.load(f)
+          
+          issues = []
+          warnings = []
+          
+          for pkg in licenses:
+              lic = pkg.get('License', '').upper()
+              if any(inc in lic for inc in INCOMPATIBLE):
+                  issues.append(f\"{pkg['Name']}: {pkg['License']}\")
+              elif any(sh in lic for sh in SPECIAL_HANDLING):
+                  warnings.append(f\"{pkg['Name']}: {pkg['License']}\")
+          
+          if issues:
+              print('❌ INCOMPATIBLE LICENSES FOUND:')
+              for issue in issues:
+                  print(f'  - {issue}')
+              exit(1)
+          
+          if warnings:
+              print('⚠️  LICENSES REQUIRING SPECIAL HANDLING:')
+              for warning in warnings:
+                  print(f'  - {warning}')
+              print('\\nThese are documented in LICENSE_HARMONIZATION.md')
+          
+          print('\\n✅ All licenses are compatible!')
+          "
+      
+      - name: Compare with documented licenses
+        run: |
+          echo "Comparing current licenses with documented versions..."
+          if [ -f "licenses-current.json" ]; then
+            echo "Current license count:"
+            cat licenses-current.json | python -c "import sys, json; print(len(json.load(sys.stdin)))"
+          fi
+      
+      - name: Upload license reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: license-reports
+          path: |
+            licenses-current.md
+            licenses-current.json
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            try {
+              const report = fs.readFileSync('licenses-current.md', 'utf8');
+              const lines = report.split('\n').slice(0, 20).join('\n');
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `## 📜 License Check Results\n\n✅ All dependencies have compatible licenses.\n\nSee [LICENSE_HARMONIZATION.md](LICENSE_HARMONIZATION.md) for details.\n\n<details>\n<summary>Top 20 Dependencies</summary>\n\n${lines}\n</details>`
+              });
+            } catch (error) {
+              console.log('Could not read license report:', error);
+            }

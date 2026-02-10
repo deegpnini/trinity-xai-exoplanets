@@ -1,0 +1,212 @@
+name: Fusion Monitor
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'copilot/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+  schedule:
+    # Run daily at 8:00 AM UTC
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  monitor-fusion:
+    name: Monitor Repository Fusion Progress
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Analyze repository structure
+        run: |
+          echo "## 🔄 Repository Fusion Status" > fusion_report.md
+          echo "" >> fusion_report.md
+          echo "**Date**: $(date -u +"%Y-%m-%d %H:%M UTC")" >> fusion_report.md
+          echo "" >> fusion_report.md
+          
+          # Count files by component
+          echo "### Component File Counts" >> fusion_report.md
+          echo "" >> fusion_report.md
+          echo "| Component | Files | Lines of Code |" >> fusion_report.md
+          echo "|-----------|-------|---------------|" >> fusion_report.md
+          
+          for dir in src INTERESTELAR_HEBRON PROJETO_INTERESTELAR_HEBRON LEGACY cosmic-orchestrator modules config docs; do
+            if [ -d "$dir" ]; then
+              file_count=$(find "$dir" -type f | wc -l)
+              loc=$(find "$dir" -name "*.py" -exec wc -l {} + 2>/dev/null | tail -1 | awk '{print $1}' || echo "0")
+              echo "| $dir | $file_count | $loc |" >> fusion_report.md
+            fi
+          done
+          
+          echo "" >> fusion_report.md
+      
+      - name: Check integration layer
+        run: |
+          echo "### Module Integration Status" >> fusion_report.md
+          echo "" >> fusion_report.md
+          
+          # Check if integration modules exist
+          if [ -d "modules" ]; then
+            echo "✅ Integration layer exists" >> fusion_report.md
+            echo "" >> fusion_report.md
+            echo "**Modules**:" >> fusion_report.md
+            ls -1 modules/*.py | xargs -I {} basename {} .py >> fusion_report.md
+          else
+            echo "❌ Integration layer missing" >> fusion_report.md
+          fi
+          
+          echo "" >> fusion_report.md
+      
+      - name: Check documentation completeness
+        run: |
+          echo "### Documentation Status" >> fusion_report.md
+          echo "" >> fusion_report.md
+          
+          docs_list=(
+            "README.md:Main documentation"
+            "docs/STATUS.md:Status dashboard"
+            "docs/INTEGRATION_MAP.md:Integration map"
+            "docs/GETTING_STARTED.md:Quick start guide"
+            "docs/ARCHITECTURE.md:Architecture docs"
+            "docs/ETHICAL_FRAMEWORK.md:Ethics framework"
+            "security_report.md:Security report"
+            "LICENSE_HARMONIZATION.md:License docs"
+            "NOTICE.md:Attributions"
+          )
+          
+          for doc_entry in "${docs_list[@]}"; do
+            IFS=':' read -r file desc <<< "$doc_entry"
+            if [ -f "$file" ]; then
+              echo "- ✅ $desc ($file)" >> fusion_report.md
+            else
+              echo "- ❌ $desc ($file)" >> fusion_report.md
+            fi
+          done
+          
+          echo "" >> fusion_report.md
+      
+      - name: Check CI/CD workflows
+        run: |
+          echo "### CI/CD Status" >> fusion_report.md
+          echo "" >> fusion_report.md
+          
+          workflows=(
+            "ci.yml:Basic CI"
+            "security-scan.yml:Security scanning"
+            "license-check.yml:License checking"
+            "python-ci.yml:Python testing"
+            "lint.yml:Code quality"
+            "fusion-monitor.yml:Fusion monitoring"
+          )
+          
+          for workflow_entry in "${workflows[@]}"; do
+            IFS=':' read -r file desc <<< "$workflow_entry"
+            if [ -f ".github/workflows/$file" ]; then
+              echo "- ✅ $desc" >> fusion_report.md
+            else
+              echo "- ❌ $desc" >> fusion_report.md
+            fi
+          done
+          
+          echo "" >> fusion_report.md
+      
+      - name: Calculate completion percentage
+        run: |
+          echo "### Overall Progress" >> fusion_report.md
+          echo "" >> fusion_report.md
+          
+          # Calculate based on key deliverables
+          total=0
+          complete=0
+          
+          # Security (10 points)
+          total=$((total + 10))
+          if [ -f "security_report.md" ]; then complete=$((complete + 10)); fi
+          
+          # Licenses (10 points)
+          total=$((total + 10))
+          if [ -f "LICENSE_HARMONIZATION.md" ] && [ -f "NOTICE.md" ]; then complete=$((complete + 10)); fi
+          
+          # Documentation (25 points)
+          total=$((total + 25))
+          doc_count=0
+          [ -f "docs/STATUS.md" ] && doc_count=$((doc_count + 1))
+          [ -f "docs/INTEGRATION_MAP.md" ] && doc_count=$((doc_count + 1))
+          [ -f "docs/GETTING_STARTED.md" ] && doc_count=$((doc_count + 1))
+          complete=$((complete + doc_count * 8))
+          
+          # Integration layer (25 points)
+          total=$((total + 25))
+          if [ -d "modules" ] && [ -d "config" ]; then complete=$((complete + 25)); fi
+          
+          # CI/CD (30 points)
+          total=$((total + 30))
+          workflow_count=0
+          [ -f ".github/workflows/security-scan.yml" ] && workflow_count=$((workflow_count + 1))
+          [ -f ".github/workflows/license-check.yml" ] && workflow_count=$((workflow_count + 1))
+          [ -f ".github/workflows/python-ci.yml" ] && workflow_count=$((workflow_count + 1))
+          [ -f ".github/workflows/lint.yml" ] && workflow_count=$((workflow_count + 1))
+          [ -f ".github/workflows/fusion-monitor.yml" ] && workflow_count=$((workflow_count + 1))
+          complete=$((complete + workflow_count * 6))
+          
+          percentage=$((complete * 100 / total))
+          
+          echo "**Completion**: ${percentage}% (${complete}/${total} points)" >> fusion_report.md
+          echo "" >> fusion_report.md
+          
+          # Progress bar
+          echo -n "**Progress**: [" >> fusion_report.md
+          filled=$((percentage / 5))
+          for i in {1..20}; do
+            if [ $i -le $filled ]; then
+              echo -n "█" >> fusion_report.md
+            else
+              echo -n "░" >> fusion_report.md
+            fi
+          done
+          echo "] ${percentage}%" >> fusion_report.md
+          
+          echo "" >> fusion_report.md
+      
+      - name: Display report
+        run: |
+          cat fusion_report.md
+          cat fusion_report.md >> $GITHUB_STEP_SUMMARY
+      
+      - name: Upload fusion report
+        uses: actions/upload-artifact@v3
+        with:
+          name: fusion-report
+          path: fusion_report.md
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            try {
+              const report = fs.readFileSync('fusion_report.md', 'utf8');
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: report
+              });
+            } catch (error) {
+              console.log('Could not read fusion report:', error);
+            }
