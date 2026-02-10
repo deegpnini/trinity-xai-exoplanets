@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🃏 Cartas Luminais Interativas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #667eea;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card.flipped {
+            background: #f7f7f7;
+        }
+
+        .card-symbol {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .card-letter {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-name {
+            font-size: 1.2em;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .card-frequency {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .card-back {
+            display: none;
+        }
+
+        .card.flipped .card-front {
+            display: none;
+        }
+
+        .card.flipped .card-back {
+            display: block;
+            text-align: left;
+        }
+
+        .card-info {
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        .card-examples {
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .game-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .game-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 1.5em;
+            color: #764ba2;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🃏 Cartas Luminais Interativas</h1>
+            <p class="subtitle">Clique nas cartas para ver detalhes • Aprenda a Língua da Luz</p>
+        </header>
+
+        <div class="controls">
+            <button onclick="showVowels()">🌟 Vogais (5)</button>
+            <button onclick="showConsonants()">💡 Consoantes (12)</button>
+            <button onclick="showWords()">📚 Palavras (10)</button>
+            <button onclick="showAll()">🎯 Todas</button>
+            <button onclick="playGame()">🎮 Jogo da Memória</button>
+        </div>
+
+        <div class="cards-grid" id="cardsGrid"></div>
+
+        <div class="game-section" id="gameSection" style="display: none;">
+            <h2>🎮 Jogo da Memória Luminal</h2>
+            <p>Encontre os pares de cartas iguais!</p>
+            <div class="score">Pontos: <span id="score">0</span></div>
+        </div>
+
+        <footer>
+            <p>Trinity XAI Nexus Guardian - Projeto Lumin-A 2026</p>
+            <p>MI LUMA. TU LUMA. NOS LUMAS. ✨</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dados das cartas
+        const vowels = [
+            { letter: 'A', symbol: '⚡', name: 'Luz Ativa', frequency: '432 Hz', color: '#FFD700', examples: 'AMOR, ALEGRIA, AMIZADE', pronunciation: '"A" como em PAZ' },
+            { letter: 'E', symbol: '🌊', name: 'Luz Fluente', frequency: '396 Hz', color: '#4169E1', examples: 'ELA, EMOÇÃO, ENERGIA', pronunciation: '"E" fechado como em MÊS' },
+            { letter: 'I', symbol: '🎯', name: 'Luz Focada', frequency: '528 Hz', color: '#50C878', examples: 'MI (eu), INICIO, IDEIA', pronunciation: '"I" agudo como em SIM' },
+            { letter: 'O', symbol: '🔵', name: 'Luz Circular', frequency: '639 Hz', color: '#4B0082', examples: 'OMO (homem), ONDA, OLHO', pronunciation: '"O" fechado como em AVÔ' },
+            { letter: 'U', symbol: '🌌', name: 'Luz Universal', frequency: '741 Hz', color: '#8B00FF', examples: 'UNO (um), UNIVERSO, UNIÃO', pronunciation: '"U" fechado como em LUZ' }
+        ];
+
+        const consonants = [
+            { letter: 'L', symbol: '💡', name: 'Luz', examples: 'LUMA, LUMI, LUMO' },
+            { letter: 'M', symbol: '🎵', name: 'Música', examples: 'MAMA, MUSICO, AMOR' },
+            { letter: 'N', symbol: '🌱', name: 'Natureza', examples: 'NATURA, NINO, NOVO' },
+            { letter: 'S', symbol: '✨', name: 'Estrela', examples: 'SOL, SEMA, SIELO' },
+            { letter: 'T', symbol: '🏛️', name: 'Terra', examples: 'TERRA, TEMPO, TUTO' },
+            { letter: 'R', symbol: '🔄', name: 'Rotação', examples: 'ROTA, RIVER, RETORNO' },
+            { letter: 'P', symbol: '🕊️', name: 'Paz', examples: 'PAX, PATER, PAUSO' },
+            { letter: 'B', symbol: '🌱', name: 'Base', examples: 'BASE, BONA, BELO' },
+            { letter: 'D', symbol: '🌟', name: 'Dia', examples: 'DIA, DICI, DONO' },
+            { letter: 'F', symbol: '🔥', name: 'Fogo', examples: 'FOGO, FILIA, FORTE' },
+            { letter: 'V', symbol: '🌈', name: 'Vida', examples: 'VIDA, VENI, VIDI' },
+            { letter: 'C', symbol: '✨', name: 'Céu', examples: 'CIELO, CASA, CORE' }
+        ];
+
+        const words = [
+            { word: 'LUMA', symbol: '💡', meaning: 'Luz-mãe, luz fundamental', example: 'MI LUMA (eu sou luz)' },
+            { word: 'AMOR', symbol: '❤️', meaning: 'Amor universal', example: 'MI AMA TU (eu amo você)' },
+            { word: 'PAX', symbol: '🕊️', meaning: 'Paz', example: 'PAX A TU (paz a você)' },
+            { word: 'SOL', symbol: '☀️', meaning: 'Sol', example: 'SOL LUMA (sol é luz)' },
+            { word: 'LUNA', symbol: '🌙', meaning: 'Lua', example: 'LUNA BELA (lua bela)' },
+            { word: 'AMIKO', symbol: '👥', meaning: 'Amigo', example: 'NOS AMIKOS (nós somos amigos)' },
+            { word: 'FAMILIA', symbol: '👨‍👩‍👧‍👦', meaning: 'Família', example: 'MI FAMILIA (minha família)' },
+            { word: 'TERRA', symbol: '🌍', meaning: 'Terra, planeta', example: 'NOS TERRA (nossa terra)' },
+            { word: 'SCOLA', symbol: '🏫', meaning: 'Escola', example: 'MI IRI SCOLA (vou para escola)' },
+            { word: 'ALEGRIA', symbol: '😊', meaning: 'Alegria', example: 'MI SENTI ALEGRIA (sinto alegria)' }
+        ];
+
+        let currentSet = 'all';
+
+        function createCard(data, type) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => flipCard(card);
+
+            if (type === 'vowel') {
+                card.innerHTML = `
+                    <div class="card-front">
+                        <div class="card-symbol">${data.symbol}</div>
+                        <div class="card-letter" style="color: ${data.color}">${data.letter}</div>
+                        <div class="card-name">${data.name}</div>
+                        <div class="card-frequency">${data.frequency}</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-info"><strong>Pronúncia:</strong> ${data.pronunciation}</div>
+                        <div class="card-info"><strong>Frequência:</strong> ${data.frequency}</div>
+                        <div class="card-examples"><strong>Exemplos:</strong> ${data.examples}</div>
+                    </div>
+                `;
+            } else if (type === 'consonant') {
+                card.innerHTML = `
+                    <div class="card-front">
+                        <div class="card-symbol">${data.symbol}</div>
+                        <div class="card-letter">${data.letter}</div>
+                        <div class="card-name">${data.name}</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-info"><strong>Qualidade:</strong> ${data.name}</div>
+                        <div class="card-examples"><strong>Palavras:</strong> ${data.examples}</div>
+                    </div>
+                `;
+            } else if (type === 'word') {
+                card.innerHTML = `
+                    <div class="card-front">
+                        <div class="card-symbol">${data.symbol}</div>
+                        <div class="card-letter">${data.word}</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-info"><strong>Significado:</strong> ${data.meaning}</div>
+                        <div class="card-examples"><strong>Exemplo:</strong> ${data.example}</div>
+                    </div>
+                `;
+            }
+
+            return card;
+        }
+
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+
+        function displayCards(cards, type) {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+            cards.forEach(data => {
+                grid.appendChild(createCard(data, type));
+            });
+        }
+
+        function showVowels() {
+            displayCards(vowels, 'vowel');
+            currentSet = 'vowels';
+        }
+
+        function showConsonants() {
+            displayCards(consonants, 'consonant');
+            currentSet = 'consonants';
+        }
+
+        function showWords() {
+            displayCards(words, 'word');
+            currentSet = 'words';
+        }
+
+        function showAll() {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+            vowels.forEach(data => grid.appendChild(createCard(data, 'vowel')));
+            consonants.forEach(data => grid.appendChild(createCard(data, 'consonant')));
+            currentSet = 'all';
+        }
+
+        function playGame() {
+            alert('🎮 Jogo da Memória em desenvolvimento!\n\nEm breve você poderá jogar e testar seu conhecimento das cartas Luminais.\n\nPor enquanto, explore as cartas clicando nelas para ver os detalhes! ✨');
+        }
+
+        // Inicializar com vogais
+        showVowels();
+    </script>
+</body>
+</html>
