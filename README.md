@@ -3,6 +3,10 @@ Por Helyton (Hebron)
 
 ## 📚 Recursos Educacionais
 
+### 🗂️ Índice Completo
+Para uma visão geral completa de todos os recursos educacionais, consulte:
+**[📖 INDEX.md](./INDEX.md)** - Guia completo com instruções passo a passo, cronogramas, materiais e dicas
+
 ### 🌟 Os 10 Vetores dos Exoplanetas
 Documentação educacional completa para crianças de 8 anos com exemplos práticos para sala de aula:
 
