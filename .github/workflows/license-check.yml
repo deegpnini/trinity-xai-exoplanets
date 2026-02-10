@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pip-licenses
-          pip install -r requirements.txt
+          pip install -r requirements-prod.txt
       
       - name: Generate license report
         run: |

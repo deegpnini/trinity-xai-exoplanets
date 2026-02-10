@@ -215,11 +215,11 @@ nexus = NexusGuardian(device_type=device)
 
 ```python
 # nexus_guardian.py
-from core import GrokEngine, ClaudeEthics, TrnitySynthesis
+from core import GrokEngine, ClaudeEthics, TrinitySynthesis
 
 self.grok = GrokEngine()
 self.claude = ClaudeEthics()
-self.trinity = TrnitySynthesis()
+self.trinity = TrinitySynthesis()
 
 # Process with ethical override
 result = self.claude.validate(content, child_context)

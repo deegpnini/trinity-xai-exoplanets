@@ -59,12 +59,12 @@ jobs:
       
       - name: Run Safety check
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements-prod.txt
           safety check --json --output safety-report.json || true
       
       - name: Run pip-audit
         run: |
-          pip-audit --desc --requirement requirements.txt || true
+          pip-audit --desc --requirement requirements-prod.txt || true
       
       - name: Upload vulnerability reports
         if: always()

@@ -7,6 +7,7 @@ Common utilities and helpers for module integration.
 from typing import Any, Dict, List, Optional
 import logging
 import importlib
+import pkgutil
 import sys
 
 logger = logging.getLogger(__name__)
