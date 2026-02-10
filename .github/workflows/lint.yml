@@ -16,6 +16,8 @@ jobs:
   lint:
     name: Linting
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -51,6 +53,8 @@ jobs:
     name: Auto-format (PR only)
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout code
@@ -90,6 +94,8 @@ jobs:
   complexity:
     name: Code Complexity
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -130,6 +136,8 @@ jobs:
   documentation:
     name: Documentation Check
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -153,6 +161,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [lint, complexity, documentation]
     if: always()
+    permissions:
+      contents: read
     
     steps:
       - name: Generate summary

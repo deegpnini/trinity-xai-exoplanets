@@ -19,6 +19,9 @@ jobs:
   license-compliance:
     name: License Compliance Check
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     
     steps:
       - name: Checkout code
