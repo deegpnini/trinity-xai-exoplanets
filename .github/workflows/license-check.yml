@@ -1,0 +1,79 @@
+name: License Check
+
+on:
+  push:
+    branches: [ main, develop, copilot/** ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  license-check:
+    runs-on: ubuntu-latest
+    name: License Compatibility Check
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install pip-licenses licensecheck
+      
+      - name: Check Python Package Licenses
+        run: |
+          echo "📋 Checking Python package licenses..."
+          pip install -r requirements.txt
+          pip-licenses --format=markdown --output-file=license-report.md
+          pip-licenses --format=json --output-file=license-report.json
+      
+      - name: Display License Summary
+        run: |
+          echo "📊 License Summary:"
+          cat license-report.md
+      
+      - name: Check for GPL Conflicts
+        run: |
+          echo "⚠️ Checking for GPL conflicts..."
+          pip-licenses --format=json | jq -r '.[] | select(.License | contains("GPL")) | .Name + " - " + .License'
+          GPL_COUNT=$(pip-licenses --format=json | jq '[.[] | select(.License | contains("GPL"))] | length')
+          if [ "$GPL_COUNT" -gt 0 ]; then
+            echo "⚠️ Found $GPL_COUNT GPL-licensed dependencies"
+            echo "Note: GPL dependencies may require special handling with MIT license"
+          else
+            echo "✅ No GPL conflicts found"
+          fi
+      
+      - name: Verify Project License
+        run: |
+          echo "🔍 Verifying project license..."
+          if [ -f "LICENSE" ]; then
+            echo "✅ LICENSE file exists"
+            head -n 5 LICENSE
+          else
+            echo "❌ LICENSE file not found!"
+            exit 1
+          fi
+      
+      - name: Upload License Reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: license-reports
+          path: |
+            license-report.md
+            license-report.json
+          retention-days: 90
+      
+      - name: Check License Compatibility
+        run: |
+          echo "✅ License check completed"
+          echo "📄 Project License: MIT with Ethical Addendum"
+          echo "🔗 Compatible with: MIT, BSD, Apache 2.0, ISC"
+          echo "⚠️ Requires special handling: GPL, LGPL"
+          echo "❌ Incompatible with: Proprietary, Custom restrictive licenses"

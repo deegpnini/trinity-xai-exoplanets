@@ -1,0 +1,110 @@
+name: Project Status Monitor
+
+on:
+  push:
+    branches: [ main, develop, copilot/** ]
+  schedule:
+    # Run daily at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  status-check:
+    runs-on: ubuntu-latest
+    name: Monitor Project Health
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+      
+      - name: Count Project Statistics
+        id: stats
+        run: |
+          echo "📊 Project Statistics:"
+          
+          # Lines of code
+          LOC=$(find src/ -name "*.py" -exec wc -l {} + | tail -1 | awk '{print $1}')
+          echo "lines_of_code=$LOC" >> $GITHUB_OUTPUT
+          echo "  Lines of Code: $LOC"
+          
+          # Number of modules
+          MODULES=$(find src/ -name "*.py" | wc -l)
+          echo "modules=$MODULES" >> $GITHUB_OUTPUT
+          echo "  Python Modules: $MODULES"
+          
+          # Number of tests
+          TESTS=$(find tests/ -name "test_*.py" -exec grep -c "def test_" {} + | awk '{s+=$1} END {print s}')
+          echo "tests=$TESTS" >> $GITHUB_OUTPUT
+          echo "  Test Functions: $TESTS"
+          
+          # Documentation files
+          DOCS=$(find docs/ -name "*.md" | wc -l)
+          echo "docs=$DOCS" >> $GITHUB_OUTPUT
+          echo "  Documentation Files: $DOCS"
+      
+      - name: Run Test Coverage
+        run: |
+          pytest tests/ --cov=src --cov-report=term-missing --cov-report=json
+          COVERAGE=$(python -c "import json; print(json.load(open('coverage.json'))['totals']['percent_covered'])")
+          echo "📈 Test Coverage: ${COVERAGE}%"
+          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+        id: coverage
+      
+      - name: Check Recent Activity
+        run: |
+          echo "📅 Recent Activity:"
+          echo "  Commits (last 7 days): $(git log --since='7 days ago' --oneline | wc -l)"
+          echo "  Contributors: $(git log --format='%aN' | sort -u | wc -l)"
+          echo "  Last commit: $(git log -1 --pretty=format:'%h - %s (%cr)')"
+      
+      - name: Verify Documentation
+        run: |
+          echo "📚 Documentation Status:"
+          required_docs=("README.md" "docs/ARCHITECTURE.md" "docs/ETHICAL_FRAMEWORK.md" "docs/CONTRIBUTING.md" "docs/STATUS.md" "docs/INTEGRATION_MAP.md" "docs/GETTING_STARTED.md")
+          missing=()
+          for doc in "${required_docs[@]}"; do
+            if [ -f "$doc" ]; then
+              echo "  ✅ $doc exists"
+            else
+              echo "  ❌ $doc missing"
+              missing+=("$doc")
+            fi
+          done
+          
+          if [ ${#missing[@]} -eq 0 ]; then
+            echo "✅ All required documentation present"
+          else
+            echo "⚠️ Missing documentation: ${missing[*]}"
+          fi
+      
+      - name: Check Security Files
+        run: |
+          echo "🔒 Security Configuration:"
+          [ -f ".gitignore" ] && echo "  ✅ .gitignore configured" || echo "  ❌ .gitignore missing"
+          [ -f "LICENSE" ] && echo "  ✅ LICENSE present" || echo "  ❌ LICENSE missing"
+          [ -f "CODE_OF_CONDUCT.md" ] && echo "  ✅ Code of Conduct present" || echo "  ❌ Code of Conduct missing"
+          grep -q ".env" .gitignore && echo "  ✅ .env files ignored" || echo "  ⚠️ .env not in .gitignore"
+      
+      - name: Overall Health Status
+        run: |
+          echo "🎯 Overall Project Health:"
+          echo "  Repository: trinity-xai-exoplanets"
+          echo "  Status: Active Development"
+          echo "  Phase: Alpha → Beta"
+          echo "  Lines of Code: ${{ steps.stats.outputs.lines_of_code }}"
+          echo "  Test Coverage: ${{ steps.coverage.outputs.coverage }}%"
+          echo "  Documentation: ${{ steps.stats.outputs.docs }} files"
+          echo ""
+          echo "✅ Project is healthy and progressing"

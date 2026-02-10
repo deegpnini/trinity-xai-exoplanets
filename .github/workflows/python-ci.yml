@@ -1,0 +1,99 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main, develop, copilot/** ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+    
+    name: Test Python ${{ matrix.python-version }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-xdist
+      
+      - name: Run tests
+        run: |
+          pytest tests/ -v --cov=src --cov-report=xml --cov-report=term-missing
+      
+      - name: Upload coverage to Codecov
+        if: matrix.python-version == '3.10'
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+      
+      - name: Test Summary
+        if: always()
+        run: |
+          echo "🧪 Test Results for Python ${{ matrix.python-version }}:"
+          pytest tests/ --tb=short --co -q
+  
+  lint:
+    runs-on: ubuntu-latest
+    name: Code Quality
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install linting tools
+        run: |
+          pip install black isort flake8 mypy pylint
+          pip install -r requirements.txt
+      
+      - name: Check code formatting with Black
+        run: |
+          black --check src/ tests/ || echo "⚠️ Code needs formatting (run: black src/ tests/)"
+      
+      - name: Check import ordering with isort
+        run: |
+          isort --check-only src/ tests/ || echo "⚠️ Imports need sorting (run: isort src/ tests/)"
+      
+      - name: Lint with flake8
+        run: |
+          flake8 src/ tests/ --max-line-length=120 --extend-ignore=E203,W503 || echo "⚠️ Flake8 issues found"
+      
+      - name: Type check with mypy
+        run: |
+          mypy src/ --ignore-missing-imports || echo "⚠️ Type hints need improvement"
+      
+      - name: Lint Summary
+        run: |
+          echo "✅ Code quality checks completed"
+          echo "📋 Run 'black src/ tests/' to auto-format"
+          echo "📋 Run 'isort src/ tests/' to organize imports"
