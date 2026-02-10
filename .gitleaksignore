@@ -1,0 +1,7 @@
+# Gitleaks ignore file
+# Add paths or patterns that should be excluded from gitleaks scanning
+# Use this sparingly and only for false positives
+
+# Example patterns (none needed currently)
+# tests/fixtures/fake_keys.json
+# docs/examples/sample_config.yml
