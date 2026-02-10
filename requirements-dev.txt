@@ -1,0 +1,37 @@
+# Nexus Guardian D7D - Development Dependencies
+# Additional dependencies for development, testing, and contributing
+
+# Testing
+pytest>=7.0.0                # Testing framework
+pytest-cov>=4.0.0           # Coverage reports
+pytest-asyncio>=0.21.0      # Async testing support
+pytest-mock>=3.10.0         # Mocking support
+
+# Code Quality
+black>=23.0.0               # Code formatting
+flake8>=6.0.0               # Linting
+mypy>=1.0.0                 # Type checking
+isort>=5.12.0               # Import sorting
+pylint>=2.17.0              # Advanced linting
+
+# Documentation
+sphinx>=5.0.0               # Documentation generation
+sphinx-rtd-theme>=1.2.0     # ReadTheDocs theme
+myst-parser>=1.0.0          # Markdown support for Sphinx
+
+# Development Utilities
+ipython>=8.0.0              # Enhanced Python shell
+jupyter>=1.0.0              # Jupyter notebooks
+notebook>=6.5.0             # Jupyter notebook server
+
+# Security & License Tools
+pip-licenses>=4.3.0         # License scanning
+safety>=2.3.0               # Dependency vulnerability scanning
+
+# Build Tools
+build>=0.10.0               # PEP 517 build backend
+twine>=4.0.0                # Package publishing
+wheel>=0.40.0               # Wheel packaging
+
+# Pre-commit Hooks (optional)
+pre-commit>=3.0.0           # Pre-commit hook framework

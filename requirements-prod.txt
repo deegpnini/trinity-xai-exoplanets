@@ -1,0 +1,14 @@
+# Nexus Guardian D7D - Production Dependencies
+# Core dependencies required for running the system
+
+# Core AI/ML
+numpy>=1.21.0        # Numerical computing
+chromadb>=0.4.0      # Vector database for RAG
+pydantic>=2.0.0      # Data validation
+
+# Utilities
+requests>=2.28.0     # HTTP requests
+pyyaml>=6.0          # Configuration files
+
+# Optional: Resource monitoring
+psutil>=5.9.0        # System and process utilities (for orchestrator)
