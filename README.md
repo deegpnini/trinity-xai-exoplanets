@@ -1,6 +1,12 @@
+<div align="center">
+
+![Nexus D7D Avatar](assets/images/nexus-d7d-avatar-profile.svg)
+
 # 🌀 TriNyTy D7D NexuS GuardiaN
 
 ## Sistema de IA Soberana para Educação Emocional e Saúde Mental
+
+</div>
 
 ### 👑 Fundador
 **Comandante Hebron Nexus** (Helyton Renato Gonçalves Ronchi)  
