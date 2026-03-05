@@ -1,0 +1,6 @@
+planeta,score,distancia,habitavel,gases,ch4,o2,alerta
+Proxima Centauri b,80,4.24,True,"H2O, CO2, CH4",True,False,
+TRAPPIST-1e,50,12.1,False,CO2,False,False,
+K2-18b,40,124,True,CO2,False,False,
+TOI-700d,90,101.5,True,"CO2, CH4, O2, O3",True,True,⚠️
+LHS 1140b,30,12.5,False,"H2O, CO2",False,False,

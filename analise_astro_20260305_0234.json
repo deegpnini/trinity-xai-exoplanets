@@ -1,0 +1,52 @@
+[
+  {
+    "planeta": "Proxima Centauri b",
+    "score": 80,
+    "distancia": 4.24,
+    "habitavel": true,
+    "gases": "H2O, CO2, CH4",
+    "ch4": true,
+    "o2": false,
+    "alerta": ""
+  },
+  {
+    "planeta": "TRAPPIST-1e",
+    "score": 50,
+    "distancia": 12.1,
+    "habitavel": false,
+    "gases": "CO2",
+    "ch4": false,
+    "o2": false,
+    "alerta": ""
+  },
+  {
+    "planeta": "K2-18b",
+    "score": 40,
+    "distancia": 124,
+    "habitavel": true,
+    "gases": "CO2",
+    "ch4": false,
+    "o2": false,
+    "alerta": ""
+  },
+  {
+    "planeta": "TOI-700d",
+    "score": 90,
+    "distancia": 101.5,
+    "habitavel": true,
+    "gases": "CO2, CH4, O2, O3",
+    "ch4": true,
+    "o2": true,
+    "alerta": "⚠️"
+  },
+  {
+    "planeta": "LHS 1140b",
+    "score": 30,
+    "distancia": 12.5,
+    "habitavel": false,
+    "gases": "H2O, CO2",
+    "ch4": false,
+    "o2": false,
+    "alerta": ""
+  }
+]

@@ -1,0 +1,85 @@
+[
+  {
+    "nome": "K2-18b",
+    "score": 80,
+    "distancia": 124.0,
+    "temperatura": 275,
+    "gases": [
+      "H2O",
+      "CH4",
+      "CO2",
+      "DMS"
+    ],
+    "descoberta": 2015,
+    "justificativas": [
+      "Zona habitável (+30)",
+      "CH4 (+15)",
+      "DMS (+20) 🚀 BIOASSINATURA FORTE",
+      "H2O (+15)"
+    ]
+  },
+  {
+    "nome": "TOI-700d",
+    "score": 60,
+    "distancia": 101.5,
+    "temperatura": 268,
+    "gases": [
+      "CO2",
+      "CH4",
+      "O2",
+      "O3"
+    ],
+    "descoberta": 2020,
+    "justificativas": [
+      "Zona habitável (+30)",
+      "CH4+O2 (+30) ⚠️ DESEQUILÍBRIO QUÍMICO"
+    ]
+  },
+  {
+    "nome": "Proxima Centauri b",
+    "score": 40,
+    "distancia": 4.24,
+    "temperatura": 234,
+    "gases": [
+      "H2O",
+      "CO2",
+      "CH4"
+    ],
+    "descoberta": 2016,
+    "justificativas": [
+      "CH4 (+15)",
+      "H2O (+15)",
+      "Distância <10 anos-luz (+10)"
+    ]
+  },
+  {
+    "nome": "TRAPPIST-1e",
+    "score": 20,
+    "distancia": 40.7,
+    "temperatura": 246,
+    "gases": [
+      "CO2",
+      "H2O"
+    ],
+    "descoberta": 2017,
+    "justificativas": [
+      "H2O (+15)",
+      "Distância <50 anos-luz (+5)"
+    ]
+  },
+  {
+    "nome": "LHS 1140b",
+    "score": 20,
+    "distancia": 48.5,
+    "temperatura": 230,
+    "gases": [
+      "H2O",
+      "CO2"
+    ],
+    "descoberta": 2017,
+    "justificativas": [
+      "H2O (+15)",
+      "Distância <50 anos-luz (+5)"
+    ]
+  }
+]
