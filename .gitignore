@@ -65,3 +65,37 @@ temp/
 # Environment
 .env
 .env.local
+.env.*
+!.env.example
+.envrc
+
+# Security - Credentials and keys
+*secret*
+*SECRET*
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*password*
+*PASSWORD*
+*.credentials
+.aws/
+.azure/
+.gcp/
+credentials.json
+service-account*.json
+*-key.json
+token.json
+*token*
+!*_token.py
+apikeys.txt
+api_keys.txt
+
+# Security - Configuration
+config.local.*
+*.local.yml
+secrets.yml
+secrets.yaml
+vault.yml
+.secrets/

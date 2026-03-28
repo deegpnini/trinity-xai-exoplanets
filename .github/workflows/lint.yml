@@ -1,0 +1,174 @@
+name: Code Quality
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'copilot/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install black flake8 isort pylint
+          pip install -r requirements-prod.txt
+      
+      - name: Run Black (format check)
+        run: |
+          black --check --diff src/ tests/ modules/ config/
+      
+      - name: Run isort (import order)
+        run: |
+          isort --check-only --diff src/ tests/ modules/ config/
+      
+      - name: Run flake8 (style check)
+        run: |
+          flake8 src/ tests/ modules/ config/ --max-line-length=100 --extend-ignore=E203,W503
+      
+      - name: Run pylint (code quality)
+        run: |
+          pylint src/ modules/ config/ --disable=C0111,R0903,R0913 --max-line-length=100 || true
+  
+  format:
+    name: Auto-format (PR only)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install formatters
+        run: |
+          pip install black isort
+      
+      - name: Run formatters
+        run: |
+          black src/ tests/ modules/ config/
+          isort src/ tests/ modules/ config/
+      
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit formatted code
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git commit -m "style: auto-format code with black and isort"
+          git push
+  
+  complexity:
+    name: Code Complexity
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install radon
+        run: |
+          pip install radon
+      
+      - name: Check cyclomatic complexity
+        run: |
+          echo "## 📊 Code Complexity Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Cyclomatic Complexity" >> $GITHUB_STEP_SUMMARY
+          radon cc src/ -a -s >> complexity_report.txt
+          cat complexity_report.txt >> $GITHUB_STEP_SUMMARY
+      
+      - name: Check maintainability
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Maintainability Index" >> $GITHUB_STEP_SUMMARY
+          radon mi src/ -s >> maintainability_report.txt
+          cat maintainability_report.txt >> $GITHUB_STEP_SUMMARY
+      
+      - name: Upload reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: complexity-reports
+          path: |
+            complexity_report.txt
+            maintainability_report.txt
+  
+  documentation:
+    name: Documentation Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check for broken links in markdown
+        run: |
+          # Check README links
+          echo "Checking documentation links..."
+          grep -r "\[.*\](.*)" docs/ README.md || true
+      
+      - name: Validate markdown
+        uses: DavidAnson/markdownlint-cli2-action@v11
+        with:
+          globs: |
+            *.md
+            docs/**/*.md
+  
+  summary:
+    name: Quality Summary
+    runs-on: ubuntu-latest
+    needs: [lint, complexity, documentation]
+    if: always()
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Generate summary
+        run: |
+          echo "## 🎨 Code Quality Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Linting: ${{ needs.lint.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "### Complexity: ${{ needs.complexity.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "### Documentation: ${{ needs.documentation.result }}" >> $GITHUB_STEP_SUMMARY
