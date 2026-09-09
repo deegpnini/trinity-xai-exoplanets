@@ -111,4 +111,4 @@ AI Architect · Exploring Astrophysics & Digital Sovereignty
 - Profile: [https://github.com/deegpnini](https://github.com/deegpnini)
 ```
 
-Pode copiar e colar direto substituindo tudo no README.md.
+
