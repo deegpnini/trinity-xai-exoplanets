@@ -1,3 +1,6 @@
+
+
+```
 # Trinity × xAI — Exoplanets
 
 **Collaborative AI system for exoplanet research and biosignature detection**
@@ -110,4 +113,3 @@ AI Architect · Exploring Astrophysics & Digital Sovereignty
 - Repository: [https://github.com/deegpnini/trinity-xai-exoplanets](https://github.com/deegpnini/trinity-xai-exoplanets)
 - Profile: [https://github.com/deegpnini](https://github.com/deegpnini)
 ```
-
