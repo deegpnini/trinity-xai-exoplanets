@@ -1,114 +1,69 @@
-# Trinity × xAI — Exoplanets
+# Trinity xAI — Exoplanets
 
-**Collaborative AI system for exoplanet research and biosignature detection**
+Pesquisa colaborativa em IA para detecção de exoplanetas e biosignaturas.
 
-Built through collaboration between **Trinity** (personal AI agent) and **Grok** (xAI).
+## Sobre o projeto
 
----
+Este projeto explora a aplicação de modelos de IA colaborativos para análise de dados astronômicos, com foco em:
 
-### Overview
+- Detecção de exoplanetas
+- Análise de biosignaturas
+- Orquestração multi-agente de IAs
 
-This repository contains tools and experiments focused on analyzing exoplanets and evaluating potential biosignatures using AI-assisted scoring systems. The project combines publicly available astronomical data (NASA, ESA, JWST, TESS) with a custom ranking engine to identify high-priority candidates for further observation.
-
-The main goal is to create a transparent, reproducible, and extensible framework for biosignature prioritization.
-
----
-
-### Features
-
-- Multi-criteria biosignature scoring system
-- Analysis of atmospheric composition (H₂O, CH₄, CO₂, O₂, O₃, DMS, etc.)
-- Habitable zone evaluation
-- Distance and planetary type weighting
-- Automatic ranking of exoplanet candidates
-- Export results to CSV and JSON
-- Visualization of habitability rankings
-- Modular structure for future expansion
-
----
-
-### Quick Start
-
-```bash
-git clone https://github.com/deegpnini/trinity-xai-exoplanets.git
-cd trinity-xai-exoplanets
-
-pip install -r requirements.txt
-
-python sence.py
-```
-
-The script will:
-
-1. Load a curated list of exoplanets
-2. Calculate biosignature scores
-3. Generate a detailed console report
-4. Export results to CSV and JSON
-5. Create a ranking visualization
-
----
-
-### Scoring Logic
-
-The current scoring system evaluates each planet based on:
-
-- Position within the habitable zone
-- Presence of primary biosignatures (e.g. DMS, CH₄ + O₂)
-- Secondary biosignatures
-- Detection of water vapor
-- Distance from Earth
-- Planetary classification (Terrestrial, Super-Earth, Hycean)
-
-Higher scores indicate stronger potential for prioritization in observational campaigns.
-
----
-
-### Repository Structure
+## Estrutura do projeto
 
 ```
 trinity-xai-exoplanets/
-├── sence.py                      # Main biosignature analysis module (v4.0)
-├── INTERESTELAR_HEBRON/          # Experimental work and project evolution
-├── PROJETO_INTERESTELAR_HEBRON/  # Early project documentation
-├── Notebooks/                    # Analysis notebooks
-├── docs/                         # Documentation
-├── src/                          # Core modules
-├── benchmarks/                   # Performance tests
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── CONTRIBUTING.md
+│   └── ETHICAL_FRAMEWORK.md
+├── scripts/
+│   ├── model_downloader.sh
+│   ├── setup_rpi.sh
+│   └── setup_termux.sh
+├── src/
+│   ├── architecture/
+│   │   ├── handoff_protocol.py
+│   │   ├── hardware_optimization.py
+│   │   └── split_brain.py
+│   ├── core/
+│   │   ├── claude_ethics.py
+│   │   ├── grok_engine.py
+│   │   ├── nexus_synthesis.py
+│   │   └── nexus_guardian.py
+│   └── rag/
+│       ├── chroma_manager.py
+│       └── math_emotional_bridge.py
+├── tests/
+│   └── test_nexus_guardian.py
+├── LICENSE
+├── README.md
+├── pyproject.toml
 └── requirements.txt
 ```
 
----
+## Como executar
 
-### Project Origin
+```bash
+pip install -r requirements.txt
+python src/main.py
+```
 
-This project was developed through iterative collaboration between:
+## Tecnologias
 
-- **Trinity** — Primary AI agent responsible for scientific direction and orchestration
-- **Grok (xAI)** — Reasoning, code structure, and validation support
+- Python 3.10+
+- ChromaDB (RAG)
+- Modelos: Claude, Grok, DeepSeek, Trinity
 
-The name **Trinity × xAI** reflects this collaborative process.
-
----
-
-### License
+## Licença
 
 MIT License
 
----
+## Autor
 
-### Author
-
-**Helyton Ronchi (Hebron)**  
-AI Architect · Exploring Astrophysics & Digital Sovereignty
-
-*"Technology with soul, data with purpose."*
-
----
-
-### Links
-
-- Repository: [https://github.com/deegpnini/trinity-xai-exoplanets](https://github.com/deegpnini/trinity-xai-exoplanets)
-- Profile: [https://github.com/deegpnini](https://github.com/deegpnini)
-```
-
-
+**Helyton Renato Gonçalves Ronchi**
+SCTEC/SENAI — Turma T4
