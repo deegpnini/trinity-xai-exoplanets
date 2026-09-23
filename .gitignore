@@ -65,3 +65,6 @@ temp/
 # Environment
 .env
 .env.local
+
+# D7D-CODEX (repo separado — não commitar dentro do Trinity)
+D7D-CODEX/
